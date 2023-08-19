@@ -1,4 +1,6 @@
 import Data.Char 
+import Control.Exception (assert)
+import Test
 
 -- Not using Maybe for now, I need to learn more
 charToDigit :: Char -> Integer 
@@ -31,4 +33,9 @@ doubleEveryOther lst = rev (auxDoubleEveryOther [] (rev lst))
 
 main = do
     putStrLn "Homework 1"
+    
+    test "toDigits" toDigits 1234 [1, 2, 3, 4]
+    test "toDigitsRev" toDigitsRev 1234 [4, 3, 2, 1]
 
+    test "doubleEveryOther" doubleEveryOther [8,7,6,5] [16,7,12,5]
+    test "doubleEveryOther" doubleEveryOther [1,2,3] [1, 4, 3]
