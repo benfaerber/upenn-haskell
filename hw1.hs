@@ -1,5 +1,4 @@
 import Data.Char 
-import Control.Exception (assert)
 import Test
 
 -- Not using Maybe for now, I need to learn more
@@ -31,11 +30,25 @@ auxDoubleEveryOther acc (a:xs) = acc ++ [a]
 doubleEveryOther :: [Integer] -> [Integer]
 doubleEveryOther lst = rev (auxDoubleEveryOther [] (rev lst))
 
+sumDigits :: [Integer] -> Integer
+sumDigits lst = foldr (\c acc -> sum (toDigits c) + acc) 0 lst
+
+validate :: Integer -> Bool
+validate number =
+    let summed = sumDigits (doubleEveryOther (toDigits number)) in 
+    summed `mod` 10 == 0
+
 main = do
-    putStrLn "Homework 1"
+    putStrLn (title "Homework 1")
     
     test "toDigits" toDigits 1234 [1, 2, 3, 4]
     test "toDigitsRev" toDigitsRev 1234 [4, 3, 2, 1]
 
     test "doubleEveryOther" doubleEveryOther [8,7,6,5] [16,7,12,5]
     test "doubleEveryOther" doubleEveryOther [1,2,3] [1, 4, 3]
+
+    test "sumDigits" sumDigits [16, 7, 12, 5] 22
+
+    test "validate" validate 4012888888881881 True
+    test "validate" validate 4012888888881882 False
+
