@@ -37,6 +37,19 @@ validate number =
     let summed = sumDigits $ doubleEveryOther $ toDigits number in
     summed `mod` 10 == 0
 
+
+type Peg = String
+type Move = (Peg, Peg)
+
+type Disks = [Integer]
+
+hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+hanoi 1 source temp dest = [(source, dest)]
+hanoi n source temp dest = 
+    hanoi (n - 1) source temp dest 
+    ++ [(source, temp)]
+    ++ hanoi (n-1) dest source temp 
+
 main = do
     putStrLn (title "Homework 1")
     
@@ -51,4 +64,6 @@ main = do
     test "validate" validate 4012888888881881 True
     test "validate" validate 4012888888881882 False
     test "validate" validate 4929266301527013 True 
-    test "validate" validate 4922246341527013 False 
+    test "validate" validate 4922246341527013 False
+
+    test4 "hanoi" hanoi (2, "a", "b", "c") [("a","c"), ("a","b"), ("c","b")]
