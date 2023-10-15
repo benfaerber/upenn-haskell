@@ -22,6 +22,7 @@ mm Bold = "1"
 mm Underline = "4"
 mm NoUnderline = "24"
 mm Default = "0"
+
 getTextModifierCode = mm
 
 getTextCmd content = "\ESC[" ++ content ++ "m" 
