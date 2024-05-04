@@ -1,6 +1,7 @@
 module Test where
 import Color
 
+
 title name =
     underline (bright Blue name) 
     ++ "\n" 
